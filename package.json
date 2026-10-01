@@ -1,0 +1,14 @@
+{
+  "name": "prompt-qa-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Prompt QA and regression pipeline using PromptFoo",
+  "scripts": {
+    "eval": "promptfoo eval",
+    "eval:ci": "promptfoo eval --no-progress-bar -o reports/results.json",
+    "view": "promptfoo view"
+  },
+  "devDependencies": {
+    "promptfoo": "0.118.0"
+  }
+}

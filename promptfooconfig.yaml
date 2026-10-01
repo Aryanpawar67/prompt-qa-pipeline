@@ -1,0 +1,12 @@
+# Phase 0 smoke test: one trivial case. Replaced in later phases.
+description: smoke test
+prompts:
+  - "Reply with the single word: {{word}}"
+providers:
+  - id: anthropic:messages:{{ env.ANTHROPIC_MODEL }}
+tests:
+  - vars:
+      word: pong
+    assert:
+      - type: icontains
+        value: pong

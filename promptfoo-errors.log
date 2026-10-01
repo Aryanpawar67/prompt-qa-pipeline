@@ -1,0 +1,1 @@
+2026-10-01T09:33:07.751Z [ERROR]: Anthropic Messages API call error: 401 {"type":"error","error":{"type":"authentication_error","message":"invalid x-api-key"},"request_id":"req_011CfbHayu5jrD8DdDV9DJFM"}
