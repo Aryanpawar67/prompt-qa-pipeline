@@ -1,0 +1,72 @@
+name: prompt-qa
+
+# Runs when a PR changes prompts, the knowledge base or the test cases.
+on:
+  pull_request:
+    paths:
+      - "prompts/**"
+      - "kb/**"
+      - "tests/**"
+      - "promptfooconfig.yaml"
+      - "baseline.json"
+      - "scripts/**"
+
+env:
+  # The prompt version that is gated against baseline.json.
+  ACCEPTED_PROMPT: prompts/support_v2.txt
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL || 'claude-sonnet-4-5' }}
+  JUDGE_MODEL: ${{ vars.JUDGE_MODEL || 'claude-haiku-4-5-20251001' }}
+  # Let the gate script decide pass/fail instead of promptfoo's own exit code.
+  PROMPTFOO_PASS_RATE_THRESHOLD: "0"
+
+jobs:
+  prompt-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for API key
+        id: key
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::ANTHROPIC_API_KEY is not available (fork PR or secret not set). Skipping prompt QA."
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.key.outputs.present == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.key.outputs.present == 'true'
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        if: steps.key.outputs.present == 'true'
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        if: steps.key.outputs.present == 'true'
+        run: npm ci
+
+      - name: Unit tests for the gate script
+        if: steps.key.outputs.present == 'true'
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Evaluate the accepted prompt
+        if: steps.key.outputs.present == 'true'
+        run: npx promptfoo eval --no-cache --no-progress-bar --prompts "file://$ACCEPTED_PROMPT" -o reports/results.json -o reports/report.html
+
+      - name: Regression gate
+        if: steps.key.outputs.present == 'true'
+        run: python3 scripts/check_regression.py reports/results.json | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload HTML report
+        if: always() && steps.key.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: prompt-qa-report
+          path: reports/report.html
