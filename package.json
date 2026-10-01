@@ -4,9 +4,10 @@
   "private": true,
   "description": "Prompt QA and regression pipeline using PromptFoo",
   "scripts": {
-    "eval": "promptfoo eval",
+    "eval": "promptfoo eval -o reports/results.json -o reports/report.html",
     "eval:ci": "promptfoo eval --no-progress-bar -o reports/results.json",
-    "view": "promptfoo view"
+    "view": "promptfoo view",
+    "summary": "python3 scripts/summarize.py reports/results.json"
   },
   "devDependencies": {
     "promptfoo": "0.118.0"

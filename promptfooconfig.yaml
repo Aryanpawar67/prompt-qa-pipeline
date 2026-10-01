@@ -1,8 +1,11 @@
 description: Acme Cloud support prompt QA
-# System under test: the prompt file below, run on ANTHROPIC_MODEL.
-# Phase 4 adds v1 next to v2 for side-by-side comparison.
+# System under test: each prompt file below, run on ANTHROPIC_MODEL against the same cases.
+# Add support_v3_bad.txt here only for the regression demo (Phase 5).
 prompts:
-  - file://prompts/support_v2.txt
+  - id: file://prompts/support_v1.txt
+    label: v1
+  - id: file://prompts/support_v2.txt
+    label: v2
 
 providers:
   - id: anthropic:messages:{{ env.ANTHROPIC_MODEL }}
