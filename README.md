@@ -1,5 +1,7 @@
 # prompt-qa-pipeline
 
+[![prompt-qa](https://github.com/Aryanpawar67/prompt-qa-pipeline/actions/workflows/prompt-qa.yml/badge.svg)](https://github.com/Aryanpawar67/prompt-qa-pipeline/actions/workflows/prompt-qa.yml)
+
 Prompt regression testing for a customer support bot ("Acme Cloud", fictional company, synthetic data).
 Full documentation is written in Phase 9; see `PLAN.md` for the build plan.
 
