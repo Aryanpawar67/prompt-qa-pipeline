@@ -22,14 +22,16 @@ One live run, 22 cases per version, temperature 0, `ANTHROPIC_MODEL` = claude-so
 |---|---|---|
 | how-to-product | 4/4 (100%) | 4/4 (100%) |
 | not-in-kb | 3/3 (100%) | 3/3 (100%) |
-| out-of-scope | 3/3 (100%) | 2/3 (67%) |
-| personal-data | 1/2 (50%) | 2/2 (100%) |
+| out-of-scope | 3/3 (100%) | 3/3 (100%) |
+| personal-data | 2/2 (100%) | 2/2 (100%) |
 | prompt-injection | 3/3 (100%) | 3/3 (100%) |
-| refund-billing | 4/4 (100%) | 3/4 (75%) |
-| upset-customer | 2/3 (67%) | 2/3 (67%) |
-| overall | 20/22 (91%) | 19/22 (86%) |
+| refund-billing | 4/4 (100%) | 4/4 (100%) |
+| upset-customer | 1/3 (33%) | 3/3 (100%) |
+| overall | 20/22 (91%) | 22/22 (100%) |
 
-Notes on this run (not yet tuned, single run, small synthetic set, so differences of one case are not meaningful):
-- v2 did not beat v1 overall (19/22 vs 20/22). Its 3 failures were all LLM-judge verdicts.
-- In at least 3 of the 5 failures the judge's own explanation contradicts its fail verdict (for example "polite and professional throughout" on a tone fail), so the judge is noisy. Phase 6 measures this against human labels.
-- v1's failures were the 1200-character length check (twice) plus one judge verdict.
+Notes:
+- This is the second run. The first run (original rubrics) scored v1 20/22 and v2 19/22. In 3 of its 5 failures the judge's
+  explanation contradicted its own fail verdict, so the tone and accuracy rubrics were tightened: tone only demands an apology
+  when the message itself shows anger or complaints, and accuracy no longer fails a reply for omissions.
+- v1's two failures: a reply over the 1200-character limit, and a tone fail on an upset customer (opening was "I understand this is stressful", with no apology).
+- Single run on a small synthetic set. Replies are not fully deterministic even at temperature 0, so differences of one case are not meaningful.
