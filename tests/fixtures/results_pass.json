@@ -1,0 +1,104 @@
+{
+ "config": {
+  "prompts": [
+   {
+    "id": "x",
+    "label": "candidate"
+   }
+  ]
+ },
+ "results": {
+  "results": [
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "refund"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "refund"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "refund"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "refund"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "injection"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "injection"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "injection"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "tone"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "tone"
+     }
+    }
+   },
+   {
+    "promptIdx": 0,
+    "success": true,
+    "testCase": {
+     "metadata": {
+      "category": "tone"
+     }
+    }
+   }
+  ]
+ }
+}

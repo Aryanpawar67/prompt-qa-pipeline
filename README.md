@@ -35,3 +35,20 @@ Notes:
   when the message itself shows anger or complaints, and accuracy no longer fails a reply for omissions.
 - v1's two failures: a reply over the 1200-character limit, and a tone fail on an upset customer (opening was "I understand this is stressful", with no apology).
 - Single run on a small synthetic set. Replies are not fully deterministic even at temperature 0, so differences of one case are not meaningful.
+
+## Regression gate
+
+`baseline.json` holds the per-category pass counts of the accepted prompt (v2). `scripts/check_regression.py` exits non-zero if the
+overall pass rate drops by more than 5 points or any category drops by more than 15 points (both configurable with
+`--max-overall-drop` / `--max-category-drop`).
+
+```bash
+npm run check                                   # latest results.json (prompt v2) vs baseline.json
+python3 scripts/check_regression.py reports/results_v3.json   # gate on a single-prompt results file
+python3 scripts/check_regression.py reports/results.json --prompt v2 --update-baseline --confirm UPDATE
+npm test                                        # unit tests with fixture files
+```
+
+Demo run (v3_bad, `npx promptfoo eval --prompts file://prompts/support_v3_bad.txt -o reports/results_v3.json`): 17/22 passed (77%),
+the gate failed with exit code 1 and flagged `not-in-kb`, `out-of-scope`, `personal-data` and `upset-customer`. `prompt-injection`
+did not regress: the model resisted those attempts even with the weakened prompt.

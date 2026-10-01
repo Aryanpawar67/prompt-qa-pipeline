@@ -12,7 +12,8 @@ def pass_rates(path):
     """Return {prompt_label: {category: (passed, total)}} from a promptfoo results file."""
     data = json.load(open(path))
     results = data["results"]["results"]
-    labels = [p.get("label", p["id"]) for p in data["config"]["prompts"]]
+    # config.prompts entries are dicts (with a label) or plain strings (e.g. from --prompts)
+    labels = [p if isinstance(p, str) else p.get("label", p["id"]) for p in data["config"]["prompts"]]
     counts = defaultdict(lambda: defaultdict(lambda: [0, 0]))
     for r in results:
         label = labels[r["promptIdx"]]

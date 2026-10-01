@@ -7,7 +7,9 @@
     "eval": "promptfoo eval -o reports/results.json -o reports/report.html",
     "eval:ci": "promptfoo eval --no-progress-bar -o reports/results.json",
     "view": "promptfoo view",
-    "summary": "python3 scripts/summarize.py reports/results.json"
+    "summary": "python3 scripts/summarize.py reports/results.json",
+    "test": "python3 -m unittest discover -s tests -v",
+    "check": "python3 scripts/check_regression.py reports/results.json --prompt v2"
   },
   "devDependencies": {
     "promptfoo": "0.118.0"

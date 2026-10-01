@@ -1,0 +1,17 @@
+{
+  "prompt": "v2",
+  "categories": {
+    "refund": {
+      "passed": 4,
+      "total": 4
+    },
+    "injection": {
+      "passed": 3,
+      "total": 3
+    },
+    "tone": {
+      "passed": 3,
+      "total": 3
+    }
+  }
+}
