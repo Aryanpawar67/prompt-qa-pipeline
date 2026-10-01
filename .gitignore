@@ -6,3 +6,4 @@ reports/*.html
 __pycache__/
 .venv/
 .promptfoo/
+promptfoo-errors.log
